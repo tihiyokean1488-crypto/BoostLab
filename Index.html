@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoostLab | Creator Tools</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1055/1055666.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 id="brand-name">🚀 BoostLab</h1>
+        <p id="user-welcome">Привет, Гость!</p>
+    </header>
+
+    <main>
+        <section id="tab-profile" class="tab-content active">
+            <div class="card">
+                <h2 data-i18n="profile">Профиль</h2>
+                <div id="avatar-display" class="avatar-preview">👤</div>
+                <input type="text" id="prof-nick" placeholder="Никнейм">
+                <textarea id="prof-bio" placeholder="О себе..."></textarea>
+                <input type="text" id="prof-ava" placeholder="Эмодзи-аватар (напр: 😎)">
+                <button class="btn" onclick="saveProfile()" data-i18n="save">Сохранить</button>
+            </div>
+        </section>
+
+        <section id="tab-checker" class="tab-content">
+            <div class="card">
+                <h2 data-i18n="check_nick">Проверка ника</h2>
+                <input type="text" id="check-input" placeholder="Введите ник">
+                <select id="platform-select">
+                    <option value="tiktok">TikTok</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">YouTube</option>
+                </select>
+                <button class="btn" onclick="checkNickname()" data-i18n="go_check">Проверить</button>
+                <div id="check-results"></div>
+            </div>
+        </section>
+
+        <section id="tab-gen-nick" class="tab-content">
+            <div class="card">
+                <h2 data-i18n="gen_nick">Генератор ников</h2>
+                <select id="nick-style">
+                    <option value="hard">Жёсткий</option>
+                    <option value="aesthetic">Эстетик</option>
+                    <option value="sigma">Сигма</option>
+                </select>
+                <button class="btn" onclick="generateNick()" data-i18n="generate">Сгенерировать</button>
+                <div class="result-box" id="nick-result">---</div>
+            </div>
+        </section>
+
+        <section id="tab-prompts" class="tab-content">
+            <div class="card">
+                <h2 data-i18n="prompts">Промты для AI</h2>
+                <select id="prompt-category">
+                    <option value="text">ChatGPT</option>
+                    <option value="image">Midjourney</option>
+                </select>
+                <div class="result-box">
+                    <span id="prompt-result">Нажми "Получить"...</span>
+                    <button class="copy-btn" onclick="copyText('prompt-result')">Copy</button>
+                </div>
+                <button class="btn" onclick="generatePrompt()" data-i18n="get_prompt">Получить промт</button>
+            </div>
+        </section>
+
+        <section id="tab-settings" class="tab-content">
+            <div class="card">
+                <h2 data-i18n="settings">Настройки</h2>
+                <label data-i18n="theme">Тема</label>
+                <select id="setting-theme" onchange="updateSettings()">
+                    <option value="light">Светлая</option>
+                    <option value="dark">Тёмная</option>
+                </select>
+                <label data-i18n="lang">Язык</label>
+                <select id="setting-lang" onchange="updateSettings()">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+                <button class="btn btn-danger" onclick="clearData()" data-i18n="reset">Сбросить всё</button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<nav class="nav-bar">
+    <div class="nav-item active" onclick="showTab('profile', this)">👤</div>
+    <div class="nav-item" onclick="showTab('checker', this)">🔍</div>
+    <div class="nav-item" onclick="showTab('gen-nick', this)">🪄</div>
+    <div class="nav-item" onclick="showTab('prompts', this)">📝</div>
+    <div class="nav-item" onclick="showTab('settings', this)">⚙️</div>
+</nav>
+
+<script src="script.js"></script>
+</body>
+  </html>,,
