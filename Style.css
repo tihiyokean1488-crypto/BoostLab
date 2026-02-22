@@ -1,0 +1,91 @@
+:root {
+    --bg-color: #f2f2f7;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --text-color: #1c1c1e;
+    --accent-color: #007aff;
+    --secondary-label: #8e8e93;
+}
+
+[data-theme="dark"] {
+    --bg-color: #000000;
+    --card-bg: rgba(28, 28, 30, 0.7);
+    --text-color: #ffffff;
+    --accent-color: #0a84ff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0; padding-bottom: 90px;
+    transition: background 0.4s ease;
+}
+
+.container { max-width: 450px; margin: 0 auto; padding: 20px; }
+
+header { text-align: center; margin-bottom: 30px; }
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+input, select, textarea {
+    width: 100%; padding: 14px; margin: 10px 0;
+    border-radius: 14px; border: none;
+    background: rgba(120, 120, 128, 0.12);
+    color: var(--text-color); font-size: 16px;
+}
+
+.btn {
+    width: 100%; padding: 16px; border-radius: 16px; border: none;
+    background: var(--accent-color); color: white;
+    font-weight: 600; cursor: pointer; transition: 0.2s;
+}
+
+.btn-danger { background: #ff3b30; margin-top: 30px; }
+
+.nav-bar {
+    position: fixed; bottom: 20px; left: 20px; right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    display: flex; justify-content: space-around;
+    padding: 15px; border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .nav-bar { background: rgba(30, 30, 30, 0.8); }
+
+.nav-item { font-size: 24px; cursor: pointer; opacity: 0.4; transition: 0.3s; }
+.nav-item.active { opacity: 1; transform: translateY(-5px); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: slideUp 0.4s ease; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar-preview { 
+    font-size: 50px; text-align: center; margin-bottom: 15px; 
+    background: rgba(120,120,128,0.1); width: 80px; height: 80px; 
+    line-height: 80px; border-radius: 50%; margin: 0 auto 15px;
+}
+
+.result-box {
+    background: rgba(120,120,128,0.08); padding: 15px;
+    border-radius: 12px; margin: 10px 0; position: relative;
+    word-break: break-all;
+}
+
+.copy-btn {
+    position: absolute; top: 5px; right: 5px;
+    background: none; border: none; color: var(--accent-color);
+    font-weight: bold; cursor: pointer;
+                     }
