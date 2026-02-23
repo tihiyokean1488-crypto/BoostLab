@@ -2,101 +2,95 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BoostLab | Creator Suite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BoostLab Pro | Cosmic Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="logo.png">
 </head>
 <body>
 
 <div class="container">
     <header>
-        <img src="logo.png" alt="BoostLab Logo" class="main-logo">
         <h1 id="brand-name">BoostLab</h1>
-        <p id="user-welcome">---</p>
+        <p id="user-welcome">Загрузка звездной пыли...</p>
     </header>
 
-    <main id="app-viewport">
+    <main>
         <section id="tab-profile" class="tab-content active">
-            <div class="card">
-                <h2 data-i18n="profile_title">Профиль</h2>
-                <div id="avatar-display" class="avatar-preview">🚀</div>
-                <input type="text" id="prof-nick" data-i18n-placeholder="ph_nick">
-                <textarea id="prof-bio" data-i18n-placeholder="ph_bio"></textarea>
-                <input type="text" id="prof-ava" data-i18n-placeholder="ph_ava">
-                <button class="btn" onclick="saveProfile()" data-i18n="btn_save">Сохранить</button>
-            </div>
-        </section>
-
-        <section id="tab-checker" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="check_title">Проверка ника</h2>
-                <input type="text" id="check-input" data-i18n-placeholder="ph_check">
-                <select id="platform-select">
-                    <option value="tiktok">TikTok</option>
-                    <option value="instagram">Instagram</option>
-                    <option value="youtube">YouTube</option>
-                </select>
-                <button class="btn" onclick="checkNickname()" data-i18n="btn_check">Проверить</button>
-            </div>
-        </section>
-
-        <section id="tab-gen-nick" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="gen_title">Генератор</h2>
-                <select id="nick-style">
-                    <option value="hard" data-i18n="opt_hard">Жёсткий</option>
-                    <option value="aesthetic" data-i18n="opt_aest">Эстетик</option>
-                    <option value="sigma" data-i18n="opt_sigma">Сигма</option>
-                </select>
-                <button class="btn" onclick="generateNick()" data-i18n="btn_gen">Сгенерировать</button>
-                <div class="result-box" id="nick-result">---</div>
-            </div>
-        </section>
-
-        <section id="tab-prompts" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="prompts_title">AI Промты</h2>
-                <label data-i18n="lbl_topic">Тема промта:</label>
-                <input type="text" id="prompt-topic" data-i18n-placeholder="ph_topic">
-                <label data-i18n="lbl_tool">Инструмент:</label>
-                <select id="prompt-category">
-                    <option value="text">ChatGPT</option>
-                    <option value="image">Midjourney</option>
-                    <option value="video">Luma/Runway</option>
-                </select>
-                <div class="result-box">
-                    <span id="prompt-result" data-i18n="prompt_idle">...</span>
-                    <button class="copy-btn" onclick="copyText('prompt-result')">Copy</button>
+            <div class="card mockup-preview-card">
+                <div class="phone-mockup">
+                    <div class="m-avatar" id="m-ava">🚀</div>
+                    <div class="m-nick" id="m-nick">@creator</div>
+                    <div class="m-stats"><span><b>1.2k</b> Fans</span> <span><b>1M</b> Likes</span></div>
+                    <div class="m-bio" id="m-bio">Bio...</div>
+                    <button class="m-btn-edit">Edit Profile</button>
                 </div>
-                <button class="btn" onclick="generatePrompt()" data-i18n="btn_build">Создать</button>
+            </div>
+            <div class="card">
+                <h2>Редактор Профиля</h2>
+                <input type="text" id="prof-nick" oninput="liveUpdate()" placeholder="Никнейм">
+                <textarea id="prof-bio" oninput="liveUpdate()" rows="2" placeholder="О себе"></textarea>
+                <input type="text" id="prof-ava" oninput="liveUpdate()" placeholder="Аватар (эмодзи)">
+                <button class="btn" onclick="saveProfile()">Сохранить изменения</button>
+            </div>
+        </section>
+
+        <section id="tab-content-tools" class="tab-content">
+            <div class="card daily-card">
+                <div class="daily-header">
+                    <div class="daily-badge">ИДЕЯ ДНЯ</div>
+                    <button onclick="skipDailyIdea()" class="skip-btn">🔄</button>
+                </div>
+                <h3 id="daily-idea-text">...</h3>
+                <p id="daily-date"></p>
+            </div>
+
+            <div class="card">
+                <h2>Smart Hooks (Кликбейт)</h2>
+                <input type="text" id="hooks-topic" placeholder="Объект (напр: Машина)">
+                <div class="segmented-control">
+                    <label class="segment-item"><input type="radio" name="g" value="male" checked><span>Он</span></label>
+                    <label class="segment-item"><input type="radio" name="g" value="female"><span>Она</span></label>
+                    <label class="segment-item"><input type="radio" name="g" value="neutral"><span>Оно</span></label>
+                    <label class="segment-item"><input type="radio" name="g" value="plural"><span>Они</span></label>
+                </div>
+                <button class="btn" onclick="generateHooks()">Создать заголовок</button>
+                <div id="hooks-result" class="result-box" style="display:none;"></div>
+            </div>
+        </section>
+
+        <section id="tab-gamer" class="tab-content">
+            <div class="card gamer-card">
+                <h2 style="color: #fff;">GAMER CHALLENGE</h2>
+                <div id="game-quest" class="result-box quest-box">Нажми для вызова!</div>
+                <button class="btn btn-gamer" onclick="generateGameQuest()">🎮 Новый челлендж</button>
+            </div>
+            <div class="card">
+                <h2>Копилка на Девайс</h2>
+                <div class="progress-bg"><div id="device-bar" class="progress-fill"></div></div>
+                <div class="settings-row">
+                    <input type="number" id="device-curr" placeholder="Есть $" oninput="updateDeviceGoal()">
+                    <input type="number" id="device-total" placeholder="Надо $" oninput="updateDeviceGoal()">
+                </div>
             </div>
         </section>
 
         <section id="tab-settings" class="tab-content">
             <div class="card">
-                <h2 data-i18n="set_title">Настройки</h2>
-                <label data-i18n="lbl_theme">Тема</label>
-                <select id="setting-theme" onchange="updateSettings()">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-                <label data-i18n="lbl_lang">Язык</label>
-                <select id="setting-lang" onchange="updateSettings()">
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
-                <button class="btn btn-danger" onclick="clearData()" data-i18n="btn_reset">Сброс</button>
+                <h2>Настройки интерфейса</h2>
+                <div class="segmented-control">
+                    <label class="segment-item"><input type="radio" name="theme" value="dark" checked onclick="updateSettings()"><span>Тёмная</span></label>
+                    <label class="segment-item"><input type="radio" name="theme" value="light" onclick="updateSettings()"><span>Светлая</span></label>
+                </div>
+                <button class="btn btn-danger" onclick="clearData()">Сбросить прогресс</button>
             </div>
         </section>
     </main>
 
     <nav class="nav-bar">
         <div class="nav-item active" onclick="showTab('profile', this)">👤</div>
-        <div class="nav-item" onclick="showTab('checker', this)">🔍</div>
-        <div class="nav-item" onclick="showTab('gen-nick', this)">🪄</div>
-        <div class="nav-item" onclick="showTab('prompts', this)">📝</div>
+        <div class="nav-item" onclick="showTab('content-tools', this)">🚀</div>
+        <div class="nav-item" onclick="showTab('gamer', this)">🎮</div>
         <div class="nav-item" onclick="showTab('settings', this)">⚙️</div>
     </nav>
 </div>
