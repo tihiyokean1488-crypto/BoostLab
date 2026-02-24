@@ -1,77 +1,83 @@
 :root {
-    --neon: #00f2ff;
-    --bg: #020617;
-    --glass: rgba(15, 23, 42, 0.7);
-    --border: rgba(0, 242, 255, 0.15);
+    --accent: #38bdf8; --bg: #0f172a; --card: rgba(30, 41, 59, 0.7); --text: #f1f5f9;
+}
+[data-theme="light"] {
+    --bg: #f8fafc; --card: rgba(255, 255, 255, 0.9); --text: #1e293b;
 }
 
 body {
-    margin: 0; background: var(--bg); color: #fff;
-    font-family: 'Inter', sans-serif; height: 100vh; overflow: hidden;
+    margin: 0; padding: 0; font-family: 'Inter', sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    transition: background 0.5s; position: relative;
 }
 
-/* ФОНОВАЯ СЕТКА И ДЫХАНИЕ */
+/* Эффект дыхания фона */
 body::before {
-    content: ''; position: fixed; width: 200%; height: 200%; top: -50%; left: -50%;
-    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 40px 40px; animation: rotateBg 60s linear infinite; z-index: -2;
+    content: ''; position: fixed; top: 10%; left: 10%; width: 300px; height: 300px;
+    background: rgba(56, 189, 248, 0.15); filter: blur(100px); border-radius: 50%;
+    animation: breathe 8s infinite alternate; z-index: -1;
+}
+@keyframes breathe {
+    from { transform: scale(1) translate(0,0); opacity: 0.3; }
+    to { transform: scale(1.4) translate(30px, 50px); opacity: 0.6; }
 }
 
-@keyframes rotateBg { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-.scanline {
-    position: fixed; top: 0; width: 100%; height: 2px;
-    background: rgba(0, 242, 255, 0.2); box-shadow: 0 0 10px var(--neon);
-    animation: scan 4s linear infinite; z-index: 10; pointer-events: none;
-}
-
-@keyframes scan { from { top: -5%; } to { top: 105%; } }
-
-.container { max-width: 450px; margin: 0 auto; padding: 20px; }
+.container { max-width: 480px; margin: 0 auto; padding: 20px 15px 120px; }
+h1 { font-family: 'Dela Gothic One'; text-align: center; color: var(--accent); margin-bottom: 5px; }
+#user-welcome { text-align: center; font-size: 14px; opacity: 0.7; margin-bottom: 25px; }
 
 .card {
-    background: var(--glass); backdrop-filter: blur(15px);
-    border: 1px solid var(--border); border-radius: 20px;
-    padding: 20px; margin-bottom: 15px; position: relative;
-    animation: slideIn 0.5s ease-out;
+    background: var(--card); backdrop-filter: blur(15px); border-radius: 24px;
+    padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);
+    animation: slideIn 0.4s ease-out;
+}
+@keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; margin: 0 0 12px; }
+
+input, textarea {
+    width: 100%; padding: 14px; margin: 8px 0; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);
+    color: inherit; box-sizing: border-box; font-family: inherit;
 }
 
-@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* Сегментированный контроль */
+.segmented-control { display: flex; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 14px; gap: 4px; }
+.segment-item { flex: 1; text-align: center; position: relative; }
+.segment-item input { position: absolute; opacity: 0; }
+.segment-item span {
+    display: block; padding: 10px; border-radius: 10px; cursor: pointer;
+    font-size: 13px; font-weight: 600; transition: 0.3s; color: #94a3b8;
+}
+.segment-item input:checked + span { background: var(--accent); color: #000; }
 
-/* КНОПКИ БЕЗ БЕЛОГО ФОНА */
 .btn {
-    width: 100%; padding: 15px; background: transparent;
-    border: 1px solid var(--neon); color: var(--neon);
-    font-weight: bold; letter-spacing: 2px; border-radius: 12px;
-    cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+    width: 100%; padding: 16px; border-radius: 16px; border: none;
+    background: var(--accent); color: #000; font-weight: 800; cursor: pointer; transition: 0.2s;
 }
+.btn:active { transform: scale(0.97); }
 
-.btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 20px var(--neon); }
-
-input {
-    width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border);
-    padding: 12px; border-radius: 10px; color: var(--neon); margin-bottom: 10px; outline: none;
-}
-
-/* ГРИД ДЛЯ ЯЗЫКОВ */
-.lang-grid-12 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.l-btn input { display: none; }
-.l-btn span {
-    display: block; padding: 8px; text-align: center; font-size: 11px;
-    border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: 0.3s;
-}
-.l-btn input:checked + span { background: var(--neon); color: #000; box-shadow: 0 0 10px var(--neon); }
-
-/* НАВИГАЦИЯ */
+/* Навигация */
 .nav-bar {
     position: fixed; bottom: 20px; left: 20px; right: 20px;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px);
     display: flex; justify-content: space-around; padding: 15px;
-    border-radius: 25px; border: 1px solid var(--border);
+    border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
 }
-.nav-item { font-size: 22px; opacity: 0.4; transition: 0.3s; cursor: pointer; }
-.nav-item.active { opacity: 1; color: var(--neon); transform: translateY(-5px); }
+.nav-item { font-size: 22px; opacity: 0.3; cursor: pointer; transition: 0.3s; }
+.nav-item.active { opacity: 1; color: var(--accent); transform: translateY(-5px); }
 
 .tab-content { display: none; }
 .tab-content.active { display: block; }
-.console-text { font-family: monospace; color: var(--neon); font-size: 12px; line-height: 1.4; }
+
+/* Прогресс-бары */
+.progress-bg { background: rgba(0,0,0,0.2); height: 8px; border-radius: 4px; margin: 15px 0; }
+.progress-fill { height: 100%; width: 0%; border-radius: 4px; background: var(--accent); transition: 0.6s ease; }
+.settings-row { display: flex; gap: 10px; }
+.result-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; margin-top: 15px; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+
+/* Mockup */
+.phone-mockup { background: var(--bg); border: 4px solid #000; border-radius: 30px; padding: 15px; width: 220px; margin: 0 auto; text-align: center; }
+.m-avatar { width: 60px; height: 60px; background: #334155; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.m-nick { font-weight: 800; font-size: 14px; margin-bottom: 5px; }
+.m-stats { display: flex; justify-content: space-around; font-size: 10px; opacity: 0.7; }
