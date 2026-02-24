@@ -3,141 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BoostLab Ultimate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>BoostLab OS | Ultimate Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
+<body>
+    <div class="scanline"></div>
+    <div class="particles" id="particles"></div>
 
-<div class="container">
-    <header>
-        <h1 id="brand-name">BoostLab</h1>
-        <p id="user-welcome">Инициализация системы...</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="BoostLab">BoostLab</h1>
+            <p id="user-welcome">Initializing System...</p>
+        </header>
 
-    <main>
-        <section id="tab-profile" class="tab-content active">
-            <div class="card mockup-preview-card">
-                <div class="phone-mockup">
-                    <div class="m-avatar" id="m-ava">🚀</div>
-                    <div class="m-nick" id="m-nick">@creator</div>
-                    <div class="m-stats"><span><b>1.2k</b> Fans</span> <span><b>1M</b> Likes</span></div>
-                    <div class="m-bio" id="m-bio">Bio...</div>
-                    <button class="m-btn-edit">Edit Profile</button>
+        <main id="app-viewport">
+            <section id="tab-profile" class="tab-content active">
+                <div class="card">
+                    <div class="phone-mockup">
+                        <div class="m-avatar" id="m-ava">🚀</div>
+                        <div class="m-nick" id="m-nick">@creator</div>
+                        <div class="m-bio" id="m-bio">System Online</div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <h2 data-i18n="profile_edit">Редактор Профиля</h2>
-                <input type="text" id="prof-nick" oninput="liveUpdate()" placeholder="Никнейм">
-                <textarea id="prof-bio" oninput="liveUpdate()" rows="2" placeholder="О себе"></textarea>
-                <input type="text" id="prof-ava" oninput="liveUpdate()" placeholder="Эмодзи статус">
-                <button class="btn" onclick="saveProfile()" data-i18n="btn_save">Сохранить</button>
-            </div>
-        </section>
+                <div class="card">
+                    <h2 data-i18n="profile">ПРОФИЛЬ</h2>
+                    <input type="text" id="prof-nick" oninput="liveUpdate()" data-i18n="placeholder_nick" placeholder="Никнейм">
+                    <input type="text" id="prof-ava" oninput="liveUpdate()" placeholder="Emoji Status">
+                    <button class="btn ripple" onclick="saveProfile()" data-i18n="btn_save">СОХРАНИТЬ</button>
+                </div>
+            </section>
 
-        <section id="tab-stats" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="stats_title">Аналитика</h2>
-                <div class="segmented-control">
-                    <label class="segment-item"><input type="radio" name="plat" value="tt" checked><span>TikTok</span></label>
-                    <label class="segment-item"><input type="radio" name="plat" value="inst"><span>Insta</span></label>
-                    <label class="segment-item"><input type="radio" name="plat" value="yt"><span>YouTube</span></label>
+            <section id="tab-search" class="tab-content">
+                <div class="card">
+                    <h2 data-i18n="search_title">ГЛОБАЛЬНЫЙ ПОИСК</h2>
+                    <div class="search-wrapper">
+                        <input type="text" id="global-search-input" placeholder="Тег, тренд или ник...">
+                    </div>
+                    <div class="search-chips">
+                        <span onclick="setSearch('Trends')">#trends</span>
+                        <span onclick="setSearch('Music')">#music</span>
+                        <span onclick="setSearch('Viral')">#viral</span>
+                    </div>
+                    <button class="btn" onclick="runGlobalSearch()" data-i18n="btn_analyze">ПОИСК</button>
+                    <div id="search-results" class="result-box console-text" style="display:none;"></div>
                 </div>
-                <input type="text" id="stats-input" placeholder="Никнейм...">
-                <button class="btn" onclick="analyzeLink()" data-i18n="btn_analyze">Найти</button>
-                <div id="stats-result" class="result-box" style="display:none;"></div>
-            </div>
-            <div class="card">
-                <h2 data-i18n="goal_title">Цель по подписчикам</h2>
-                <div class="progress-bg"><div id="goal-bar" class="progress-fill"></div></div>
-                <div class="settings-row">
-                    <input type="number" id="goal-curr" placeholder="Сейчас" oninput="updateGoal()">
-                    <input type="number" id="goal-target" placeholder="Цель" oninput="updateGoal()">
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="tab-content-tools" class="tab-content">
-            <div class="card daily-card">
-                <div class="daily-header">
-                    <div class="daily-badge">ИДЕЯ ДНЯ</div>
-                    <button onclick="skipDailyIdea()" class="skip-btn">🔄</button>
+            <section id="tab-stats" class="tab-content">
+                <div class="card">
+                    <h2 data-i18n="stats">АНАЛИТИКА</h2>
+                    <div class="lang-grid-12">
+                        <label class="l-btn"><input type="radio" name="plat" value="tt" checked><span>TikTok</span></label>
+                        <label class="l-btn"><input type="radio" name="plat" value="inst"><span>Insta</span></label>
+                    </div>
+                    <input type="text" id="stats-input" placeholder="Nickname / URL">
+                    <button class="btn" onclick="analyzeLink()" data-i18n="btn_analyze">СКАНЕР</button>
+                    <div id="stats-result" class="result-box console-text" style="display:none;"></div>
                 </div>
-                <h3 id="daily-idea-text">...</h3>
-            </div>
-            <div class="card">
-                <h2>Smart Hooks</h2>
-                <input type="text" id="hooks-topic" placeholder="Объект...">
-                <div class="segmented-control">
-                    <label class="segment-item"><input type="radio" name="g" value="male" checked><span>Он</span></label>
-                    <label class="segment-item"><input type="radio" name="g" value="female"><span>Она</span></label>
-                    <label class="segment-item"><input type="radio" name="g" value="neutral"><span>Оно</span></label>
-                    <label class="segment-item"><input type="radio" name="g" value="plural"><span>Они</span></label>
-                </div>
-                <button class="btn" onclick="generateHooks()">Создать</button>
-                <div id="hooks-result" class="result-box" style="display:none;"></div>
-            </div>
-        </section>
+            </section>
 
-        <section id="tab-ai" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="ai_title">AI Конструктор</h2>
-                <div class="segmented-control">
-                    <label class="segment-item"><input type="radio" name="ai-type" value="chat" checked><span>ChatGPT</span></label>
-                    <label class="segment-item"><input type="radio" name="ai-type" value="mid"><span>Midjourney</span></label>
-                    <label class="segment-item"><input type="radio" name="ai-type" value="luma"><span>Luma</span></label>
+            <section id="tab-settings" class="tab-content">
+                <div class="card">
+                    <h2 data-i18n="lang_name">ЯЗЫК СИСТЕМЫ</h2>
+                    <div class="lang-grid-12" id="lang-picker">
+                        </div>
                 </div>
-                <textarea id="ai-topic" placeholder="О чем промт?"></textarea>
-                <button class="btn" onclick="generatePrompt()">Сгенерировать</button>
-                <div id="ai-result" class="result-box" style="display:none;"></div>
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <section id="tab-gamer" class="tab-content">
-            <div class="card gamer-card">
-                <h2>GAMER HUB</h2>
-                <div id="game-quest" class="result-box">Нажми для вызова!</div>
-                <button class="btn" style="background: #8b5cf6; color: white;" onclick="generateGameQuest()">🎮 Челлендж</button>
-            </div>
-            <div class="card">
-                <h2 data-i18n="gamer_goal">Копилка на Девайс</h2>
-                <div class="progress-bg"><div id="device-bar" class="progress-fill" style="background:#8b5cf6;"></div></div>
-                <div class="settings-row">
-                    <input type="number" id="device-curr" placeholder="Есть $" oninput="updateDeviceGoal()">
-                    <input type="number" id="device-total" placeholder="Надо $" oninput="updateDeviceGoal()">
-                </div>
-            </div>
-        </section>
+        <nav class="nav-bar">
+            <div class="nav-item active" onclick="showTab('profile', this)">👤</div>
+            <div class="nav-item" onclick="showTab('search', this)">🔍</div>
+            <div class="nav-item" onclick="showTab('stats', this)">📊</div>
+            <div class="nav-item" onclick="showTab('settings', this)">⚙️</div>
+        </nav>
+    </div>
 
-        <section id="tab-settings" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="set_lang">Язык / Language</h2>
-                <div class="segmented-control">
-                    <label class="segment-item"><input type="radio" name="lang" value="ru" checked onclick="updateSettings()"><span>Русский</span></label>
-                    <label class="segment-item"><input type="radio" name="lang" value="en" onclick="updateSettings()"><span>English</span></label>
-                </div>
-            </div>
-            <div class="card">
-                <h2 data-i18n="set_theme">Тема оформления</h2>
-                <div class="segmented-control">
-                    <label class="segment-item"><input type="radio" name="theme" value="dark" checked onclick="updateSettings()"><span>Тёмная</span></label>
-                    <label class="segment-item"><input type="radio" name="theme" value="light" onclick="updateSettings()"><span>Светлая</span></label>
-                </div>
-            </div>
-            <button class="btn btn-danger" onclick="clearData()" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444;">Удалить данные</button>
-        </section>
-    </main>
-
-    <nav class="nav-bar">
-        <div class="nav-item active" onclick="showTab('profile', this)">👤</div>
-        <div class="nav-item" onclick="showTab('stats', this)">📊</div>
-        <div class="nav-item" onclick="showTab('content-tools', this)">🚀</div>
-        <div class="nav-item" onclick="showTab('ai', this)">🪄</div>
-        <div class="nav-item" onclick="showTab('gamer', this)">🎮</div>
-        <div class="nav-item" onclick="showTab('settings', this)">⚙️</div>
-    </nav>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
